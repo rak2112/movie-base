@@ -5,7 +5,9 @@ import { Route, IndexRoute } from 'react-router';
 import Home from './components/Home';
 import HomePage from './components/HomePage';
 import Latest from './components/Latest';
+import Popular from './components/Popular';
 import Movies from './components/Movies';
+import UpComing from './components/UpComing';
 import Details from './components/Details';
 
 import FuelSavingsPage from './containers/FuelSavingsPage'; // eslint-disable-line import/no-named-as-default
@@ -17,6 +19,8 @@ export default (
     <IndexRoute component={HomePage}/>
     <Route path="movies" component={Movies} />
       <Route path="latest" component={Latest} />
+      <Route path="popular" component={Popular} />
+      <Route path="upComing" component={UpComing} />
       <Route path="movieDetails/:movieId" component={Details} />
 
     <Route path="fuel-savings" component={FuelSavingsPage}/>

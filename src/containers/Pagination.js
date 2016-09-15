@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {Pagination} from 'react-bootstrap';
 
-let mountNode = document.getElementById('pagination');
 export default
-class PaginationAdvanced extends React.Component {
+class MoviesPagination extends React.Component {
   constructor() {
     super();
     this.state = {activePage: 1};
   }
 
-  handleSelect(event, selectedEvent) { //console.log('evt',event,'thissss',selectedEvent);
-    event.preventDefault();
+  handleSelect(activePage) {
     this.setState({
-      activePage: selectedEvent.eventKey
+      activePage: activePage
     });
-    this.props.onPageChange(selectedEvent.eventKey);
+    this.props.onPageChange(activePage);
   }
 
   render() {
@@ -32,3 +30,8 @@ class PaginationAdvanced extends React.Component {
     );
   }
 }
+
+MoviesPagination.propTypes = {
+  onPageChange: PropTypes.func.isRequired,
+  itemToDisplay: PropTypes.number.isRequired
+};

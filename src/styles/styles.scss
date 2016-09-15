@@ -17,6 +17,16 @@ h3 {
 iframe {
   width: 100%;
 }
+
+#content {
+  overflow: hidden;
+  width: 100%;
+  padding: 20px;
+}
+
+.movieList {
+  overflow: hidden;
+}
 .carousel-inner {
   width: 105%;
 }

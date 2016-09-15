@@ -1,26 +1,25 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import MenuBar from './menuBar';
-
-let menuData = [
-  {id:1, routeName:'movies', displayName:'All Movies'},
-  {id:2, routeName:'latest', displayName:'Latest'},
-  {id:3, routeName:'popular', displayName:'Popular'},
-  {id:4, routeName:'upComing', displayName:'Up Coming'}
-];
+import { menuData } from './../constants/locationSvc';
 
 class Home extends React.Component {
   constructor (props) {
-    super(props); //context.router;
+    super(props);
     this.state = {menuData: menuData};
   }
   render() {
     return (
     <div>
       <div>HOME PAGE...</div>
-      <MenuBar data={this.state.menuData}/> {this.props.children}
+      <MenuBar data={this.state.menuData}/>
+       {this.props.children}
     </div>
   );
  }
+}
+
+Home.propTypes = {
+  children: PropTypes.object.isRequired
 };
-//Home.contextTypes = { // router: React.PropTypes.func //};
- export default Home;
+
+export default Home;
