@@ -5,8 +5,8 @@ class Popular extends React.Component {
   constructor () {
     super()
   }
-  render () {
-    return (<Movies route={this.props.route}/>);
+  render () { console.log('propss',this.props)
+    return (<Movies route={this.props.route} pageName={ "Most Popular Movies" }/>);
   }
 }
 

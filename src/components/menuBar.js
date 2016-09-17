@@ -1,7 +1,7 @@
 import React, { propTypes } from 'react';
 import { Link } from 'react-router';
 
-const ACTIVE = { background: '#000', color: '#ff5c00'}
+const ACTIVE = { background: '#000', color: '#ff5c00', borderRadius: '5px'};
 
 
 class MenuItem extends React.Component{

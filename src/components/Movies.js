@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import MovieList from './../containers/MovieList';
-// import MovieDetails from './../containers/MovieDetails';
+import Loader from '../components/Loader';
 import MoviesPagination from './../containers/Pagination';
 import { connect } from 'react-redux';
 import { getMovies } from './../actions/movieActions';
@@ -22,15 +22,12 @@ class Movies extends React.Component {
   handleRefreshClick(evt) {
     evt.preventDefault();
   }
-  render() {
+  render() { console.log('movies props', this.props);
     const {items, isFetching, isError, genres} = this.props;
     let pages = 1000; //api doesnt support pages more then 1000
     if(isFetching) {
       return (
-        <div className="alert alert-info" role="alert">
-          <i className="glyphicon glyphicon-repeat gly-spin"/>
-          <span>Loading....</span>
-        </div>
+        <Loader></Loader>
       );
     }
     if(isError) {
@@ -42,18 +39,12 @@ class Movies extends React.Component {
     }
 
     return (
-      <div className="moviesApp">
-        <h1>Latest</h1>
+      <div className="movies-app">
+        <h4>{this.props.pageName}</h4>
         <MovieList data={items} genre={genres}/>
-          <p>
-            {
-              !isFetching &&
-              <a href="#" onClick={this.handleRefreshClick.bind(this)}>
-              Refresh
-              </a>
-            }
-          </p>
-        <MoviesPagination onPageChange={this.handlePageChange.bind(this)} itemToDisplay={pages}/>
+        <div className="footer">
+          <MoviesPagination onPageChange={this.handlePageChange.bind(this)} itemToDisplay={pages}/>
+        </div>
       </div>
     );
   }

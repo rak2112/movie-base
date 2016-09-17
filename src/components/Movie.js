@@ -5,7 +5,7 @@ import { paths } from './../constants/locationSvc';
 export default class Movie extends React.Component {
   render() {
     return (
-      <div className="col-md-4 movie">
+      <div className="col-lg-4 col-md-6 col-sm-6 movie">
         <div>
           <img src={paths[ 'imgPath500']+ this.props.movie.backdrop_path} alt="" />
           <div className="detail">

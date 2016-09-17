@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import MovieDetails from '../containers/MovieDetails';
+import Loader from '../components/Loader';
+import MovieModal from '../components/Modal';
 import { Modal, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
@@ -34,25 +36,13 @@ class Details extends React.Component {
           } = this.props.getDetails;
     if(fetchingDetails && fetchingVideos && fetchingCast && fetchingImgs) {
       return (
-        <div className="alert alert-info" role="alert">
-        <i className="glyphicon glyphicon-repeat gly-spin"/>
-        <span>Loading....</span>
-        </div>
+        <Loader/>
       );
     }
     if(!fetchingDetails && !fetchingVideos && !fetchingCast && !fetchingImgs) {
       return (
         <div className="movie-details">
-          <div>
-            <Modal show={showModal} onHide={this.close}>
-              <div className="modal-body">
-                <iframe width="400" height="300" frameBorder="0" allowFullScreen="" src = {'http://www.youtube.com/v/'+utubeKey+ '&amp;autoplay=1'}/>
-              </div>
-              <Modal.Footer>
-              <Button onClick={this.props.closeModal}>Close</Button>
-              </Modal.Footer>
-            </Modal>
-          </div>
+          <MovieModal showModal={showModal} videoKey={utubeKey} closeModal={this.props.closeModal}/>
           <MovieDetails data={details} video={videos} images={images} castCrew={castCrew} clickHandler={this.props.getModal}/>
         </div>
       );
