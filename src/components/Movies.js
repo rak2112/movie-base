@@ -3,7 +3,9 @@ import MovieList from './../containers/MovieList';
 import Loader from '../components/Loader';
 import MoviesPagination from './../containers/Pagination';
 import { connect } from 'react-redux';
-import { getMovies } from './../actions/movieActions';
+import { getMovies, unLoad } from './../actions/movieActions';
+import $ from 'jquery';
+import ReactDom from 'react-dom';
 class Movies extends React.Component {
   constructor() {
     super();
@@ -14,10 +16,14 @@ class Movies extends React.Component {
     let path = route.path;
     getMovies(pageNo, path, dispatch);
   }
+
   handlePageChange(pageNo) {
     const {dispatch, route } = this.props;
     let path = route.path;
-    getMovies(pageNo, path, dispatch);
+    getMovies(pageNo, path, dispatch); console.log('rdom', this.refs)
+    this.refs.movies.childNodes[1].scrollTo(0, 0);
+    //$('.movieList').animate({ scrollTop: 0 }, 'slow');
+    //window.scrollTo(0, 0);
   }
   handleRefreshClick(evt) {
     evt.preventDefault();
@@ -39,8 +45,8 @@ class Movies extends React.Component {
     }
 
     return (
-      <div className="movies-app">
-        <h4>{this.props.pageName}</h4>
+      <div ref="movies" className="movies-app">
+        <h4>{this.props.pageName || 'All Movies'}</h4>
         <MovieList data={items} genre={genres}/>
         <div className="footer">
           <MoviesPagination onPageChange={this.handlePageChange.bind(this)} itemToDisplay={pages}/>

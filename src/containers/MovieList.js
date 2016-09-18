@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import './../styles/styles.scss';
 import Movie from './../components/Movie';
+import { paths } from './../constants/locationSvc';
 
 export default class MovieList extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
    }
    render() {
      const movieNodes = this.props.data.map((movie)=> {
@@ -23,7 +24,7 @@ export default class MovieList extends React.Component {
       });
 
      return (
-      <div className="movieList">
+      <div ref="movieList" className="movieList">
         {movieNodes}
       </div>
   );

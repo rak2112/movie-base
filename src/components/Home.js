@@ -10,7 +10,6 @@ class Home extends React.Component {
   render() {
     return (
     <div>
-      <div>HOME PAGE...</div>
       <MenuBar data={this.state.menuData}/>
        {this.props.children}
     </div>

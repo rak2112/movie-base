@@ -19,10 +19,17 @@ iframe {
   width: 100%;
 }
 
-#content {
-  overflow: hidden;
-  width: 100%;
-  padding: 20px;
+#app {
+  margin: 5px auto;
+}
+.home {
+  h1 {
+    text-align: center;
+  }
+  overflow:hidden;
+  .col-lg-4, .col-md-6, .col-sm-6 {
+    padding: 0;
+  }
 }
 .movies-app {
   h4 {
@@ -52,6 +59,8 @@ iframe {
 
 .movieList {
   overflow: hidden;
+  height: 660px;
+  overflow-y: scroll;
 }
 .carousel-inner {
   width: 105%;
