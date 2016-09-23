@@ -3,8 +3,9 @@ import {Pagination} from 'react-bootstrap';
 
 export default
 class MoviesPagination extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.handleSelect = this.handleSelect.bind(this);
     this.state = {activePage: 1};
   }
 
@@ -26,7 +27,7 @@ class MoviesPagination extends React.Component {
         maxButtons={5}
         items={this.props.itemToDisplay}
         activePage={this.state.activePage}
-        onSelect={this.handleSelect.bind(this)} />
+        onSelect={this.handleSelect} />
     );
   }
 }

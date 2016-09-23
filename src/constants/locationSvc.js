@@ -11,6 +11,7 @@ export const paths = {
 };
 
 export const menuData = [
+  {id:0, routeName: '/', displayName: 'Home'},
   {id:1, routeName:'/movies', displayName:'All Movies'},
   {id:2, routeName:'/latest', displayName:'Latest'},
   {id:3, routeName:'/popular', displayName:'Popular'},

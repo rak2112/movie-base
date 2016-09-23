@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import './../styles/styles.scss';
 import Movie from './../components/Movie';
-import { paths } from './../constants/locationSvc';
 
 export default class MovieList extends React.Component {
   constructor(props) {

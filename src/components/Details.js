@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import MovieDetails from '../containers/MovieDetails';
 import Loader from '../components/Loader';
 import MovieModal from '../components/Modal';
-import { Modal, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { openModal, closeModal, getMoviesDetails, unLoad } from './../actions/movieActions';

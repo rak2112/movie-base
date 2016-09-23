@@ -92,7 +92,6 @@ export function getMoviesDetails (id) {
         let posters =  (imgs[0].posters < 6) ? imgs[0].posters : imgs[0].posters.slice(0, 5);
         //cast[0].cast.splice(1, 5);
         //cast[0].crew.splice(1, 10);
-        console.log('cast',cast[0]);
         dispatch(loadImages(posters));
         dispatch(loadSuccessDetails(det[0]));
         dispatch(loadVideoDetails(vid[0]));
@@ -108,7 +107,6 @@ export function getVideoDetails (id) {
       method:'GET'
     }).done(function(res){
       dispatch(loadVideoDetails(res));
-      //console.log('ressssssssssssssssss',res);
     }).fail(function(err) {
       dispatch(loadError(err));
     });
@@ -164,7 +162,6 @@ export function getUpComing (pageNo) {
 
 
 export function getMovies(pageNo, route, dispatch) {
-  console.log('route', route);
   switch (route) {
     case 'movies':
       dispatch(loadMovies(pageNo));

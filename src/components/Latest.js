@@ -6,7 +6,7 @@ class Latest extends React.Component {
     super();
   }
   render () {
-    return (<Movies route={this.props.route} pageName={ "Latest Movies" }/>);
+    return (<Movies route={this.props.route} pageName={"Latest Movies"}/>);
   }
 }
 Latest.propTypes = {

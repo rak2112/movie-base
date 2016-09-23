@@ -6,7 +6,7 @@ class UpComing extends React.Component {
     super();
   }
   render () {
-    return (<Movies route={this.props.route} pageName={ "Up Coming Movies" }/>);
+    return (<Movies route={this.props.route} pageName={"Up Coming Movies"}/>);
   }
 }
 
