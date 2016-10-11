@@ -5,10 +5,24 @@ export function getGenres (state = {genres:[]}, action) {
         default: return state;
     }
 }
-export function getDetails (state = { fetchingDetails:true, fetchingVideos: true, fetchingCast:true, fetchingImgs:true, showModal:false, utubeKey:null, details:{}, videos:{}, images:{} }, action) {
+const initialStateDetails = {
+  errorDetails: false,
+  fetchingDetails:true,
+  fetchingVideos: true,
+  fetchingCast:true,
+  fetchingImgs:true,
+  showModal:false,
+  utubeKey:null,
+  details:{},
+  videos:{},
+  images:{}
+};
+export function getDetails (state = initialStateDetails , action) {
     switch (action.type) {
         case 'UN_LOAD':
             return Object.assign({}, state, { fetchingDetails: true});
+        case 'ERROR_DETAILS':
+            return Object.assign({}, state, { errorDetails: true});
         case 'LOADING_DETAILS':
             return Object.assign({}, state, { fetchingDetails: false,  details: action.res});
         case 'LOAD_VIDEOS':
@@ -26,19 +40,27 @@ export function getDetails (state = { fetchingDetails:true, fetchingVideos: true
     }
 }
 
-const initialStateMovies = {isFetching:true, items: [], totalItems:[], totalPages:[]};
+const initialStateMovies = {isFetching:true, pageNo:1, totalPages: 1, items: [], totalItems:[]};
 export function movies( state = initialStateMovies, action){
     switch (action.type) {
         case 'LOADING_REQ':
-            return Object.assign({}, state, { isFetching: true });
+            return Object.assign({}, state, {
+              isFetching: true
+            });
         case 'LOAD_ERROR':
             return Object.assign({}, state, {
-                isError: true,
-                isFetching: false,
+              isError: true,
+              isFetching: false,
+              errorStatus: action.res.message
             });
         case 'LOAD_SUCCESS':
-            return Object.assign({}, state,
-            { isFetching: false, totalItems: action.res['total_results'], totalPages:action.res['total_pages'], items: action.res['results'] });
+            return Object.assign({}, state, {
+              isFetching: false,
+              pageNo: action.pageNo,
+              totalItems: action.res['total_results'],
+              totalPages:action.res['total_pages'],
+              items: action.res['results']
+           });
         default :
             return state;
     }

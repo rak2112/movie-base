@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react';
-import MovieDetails from '../containers/MovieDetails';
+import MovieDetails from '../components/MovieDetails';
 import Loader from '../components/Loader';
+import Error from '../components/Error';
 import MovieModal from '../components/Modal';
 import { connect } from 'react-redux';
 
 import { openModal, closeModal, getMoviesDetails, unLoad } from './../actions/movieActions';
 
-class Details extends React.Component {
+export class Details extends React.Component {
   constructor() {
     super();
   }
@@ -46,7 +47,7 @@ class Details extends React.Component {
         </div>
       );
     }
-    return <p>Not able to reterive any data.</p>;
+    return <Error/>;
   }
 }
 
@@ -60,7 +61,7 @@ Details.propTypes = {
 
 function mapDispatchToProps (dispatch) {
   return {
-    dispatch:dispatch,
+    dispatch: dispatch,
     closeModal: function() {
       dispatch(closeModal());
     },

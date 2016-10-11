@@ -22,6 +22,10 @@ export default {
     filename: 'bundle.js'
   },
   plugins: [
+    new webpack.ProvidePlugin({
+            //'Promise': 'es6-promise', // Thanks Aaron (https://gist.github.com/Couto/b29676dd1ab8714a818f#gistcomment-1584602)
+            'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+        }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'), // Tells React to build in either dev or prod modes. https://facebook.github.io/react/downloads.html (See bottom)
       __DEV__: true

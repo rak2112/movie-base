@@ -4,7 +4,7 @@ import Loader from '../components/Loader';
 import { getMovies } from './../actions/movieActions';
 import LandingPage from '../components/LandingPage';
 
-class HomePage extends React.Component {
+export class HomePage extends React.Component {
   constructor() {
     super();
   }

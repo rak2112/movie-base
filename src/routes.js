@@ -3,15 +3,13 @@ import { Route, IndexRoute } from 'react-router';
 
 //import App from './components/App';
 import Home from './components/Home';
-import HomePage from './components/HomePage';
+import HomePage from './containers/HomePage';
 import Latest from './components/Latest';
 import Popular from './components/Popular';
-import Movies from './components/Movies';
+import Movies from './containers/Movies'; // eslint-disable-line import/no-named-as-default
 import UpComing from './components/UpComing';
-import Details from './components/Details';
+import Details from './containers/Details'; // eslint-disable-line import/no-named-as-default
 
-import FuelSavingsPage from './containers/FuelSavingsPage'; // eslint-disable-line import/no-named-as-default
-import AboutPage from './components/AboutPage.js';
 import NotFoundPage from './components/NotFoundPage.js';
 
 export default (
@@ -22,9 +20,6 @@ export default (
       <Route path="popular" component={Popular} />
       <Route path="upComing" component={UpComing} />
       <Route path="movieDetails/:movieId" component={Details} />
-
-    <Route path="fuel-savings" component={FuelSavingsPage}/>
-    <Route path="about" component={AboutPage}/>
     <Route path="*" component={NotFoundPage}/>
   </Route>
 );

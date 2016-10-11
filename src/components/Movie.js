@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import round from './../utils/roundingNumber';
 import './../styles/styles.scss';
 import { paths } from './../constants/locationSvc';
 const Movie = (props) => {
@@ -15,7 +16,7 @@ const Movie = (props) => {
                 return <span className="genre" key={genre.id}>{genre.name}</span>;
             })
           }
-          <p>Rating: {props.movie.vote_average}</p>
+          <p>Rating: {round(props.movie.vote_average, 1)}</p>
           <Link to={{pathname: '/movieDetails/'+props.movie.id }}>View Details</Link>
         </div>
       </div>

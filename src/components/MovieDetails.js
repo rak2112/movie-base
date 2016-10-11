@@ -43,7 +43,12 @@ export default class MovieDetails extends React.Component {
           <p><span className="attr-name">Genres:</span>
             <span>{
               this.props.data.genres.map((genre, index) => {
-                return <span key={index}>{genre.name},</span>;
+                if(index < this.props.data.genres.length-1) {
+                  return <span key={index}> {genre.name},</span>;
+                }
+                else {
+                  return <span key={index}> {genre.name}</span>;
+                }
               })
             }</span>
           </p>
@@ -52,8 +57,11 @@ export default class MovieDetails extends React.Component {
             <p>
               {
                 this.props.castCrew.cast.map((actor, index) => {
-                  if(actor.order <= 5 ){
+                  if(actor.order < 5 ){
                     return <span key={index}>{actor.name}, </span>;
+                  }
+                  if(actor.order === 5 ){
+                    return <span key={index}>{actor.name}.</span>;
                   }
                 })
               }
@@ -63,8 +71,11 @@ export default class MovieDetails extends React.Component {
             <p>
               {
                 this.props.castCrew.crew.map((crew, index) => {
-                  if(index <=5 ) {
+                  if(index < 5 ) {
                     return <span key={index}>{crew.name}, </span>;
+                  }
+                  if(index === 5 ){
+                    return <span key={index}>{crew.name}.</span>;
                   }
                 })
               }

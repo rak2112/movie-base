@@ -1,4 +1,4 @@
-import Movies from './Movies';
+import Movies from './../containers/Movies'; // eslint-disable-line import/no-named-as-default
 import React, { PropTypes } from 'react';
 
 class Latest extends React.Component {
