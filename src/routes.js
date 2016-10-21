@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 
 //import App from './components/App';
 import Home from './components/Home';
-import HomePage from './containers/HomePage';
+import HomePage from './containers/HomePage'; // eslint-disable-line import/no-named-as-default
 import Latest from './components/Latest';
 import Popular from './components/Popular';
 import Movies from './containers/Movies'; // eslint-disable-line import/no-named-as-default
