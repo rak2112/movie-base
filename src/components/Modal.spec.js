@@ -19,7 +19,7 @@ describe('<MovieModal />', () => {
     const actual = wrapper.find('.movie-modal').length;
     const expectSrc = wrapper.find('iframe').node.props.src;
     expect(actual).to.equal(1);
-    expect(expectSrc).to.equal('http://www.youtube.com/v/&amp;autoplay=1');
+    expect(expectSrc).to.equal('http://www.youtube.com/embed/?autoplay=1');
   });
 
   it(`should give a 'movie-modal' class when modal exsists and correct video src`, () => {
@@ -34,7 +34,7 @@ describe('<MovieModal />', () => {
     const actual = wrapper.find('.movie-modal').length;
     const expectSrc = wrapper.find('iframe').node.props.src;
     expect(actual).to.equal(1);
-    expect(expectSrc).to.equal('http://www.youtube.com/v/XYZ&amp;autoplay=1');
+    expect(expectSrc).to.equal('http://www.youtube.com/embed/XYZ?autoplay=1');
   });
 
   it(`should handle a click fn when closeModal gets invoked on <Button Component>`, () => {
