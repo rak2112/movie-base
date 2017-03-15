@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-//import App from './components/App';
-import Home from './components/Home';
+import TopMenu from './containers/TopMenu';
 import HomePage from './containers/HomePage'; // eslint-disable-line import/no-named-as-default
 import Latest from './components/Latest';
 import Popular from './components/Popular';
@@ -13,13 +12,14 @@ import Details from './containers/Details'; // eslint-disable-line import/no-nam
 import NotFoundPage from './components/NotFoundPage.js';
 
 export default (
-  <Route path="/" component={Home}>
+  <Route path="/" component={TopMenu}>
     <IndexRoute component={HomePage}/>
+    <Route path="home" component={HomePage} />
     <Route path="movies" component={Movies} />
-      <Route path="latest" component={Latest} />
-      <Route path="popular" component={Popular} />
-      <Route path="upComing" component={UpComing} />
-      <Route path="movieDetails/:movieId" component={Details} />
+    <Route path="latest" component={Latest} />
+    <Route path="popular" component={Popular} />
+    <Route path="upComing" component={UpComing} />
+    <Route path="movieDetails/:movieId" component={Details} />
     <Route path="*" component={NotFoundPage}/>
   </Route>
 );

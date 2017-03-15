@@ -18,6 +18,15 @@ export class Details extends React.Component {
       dispatch(getMoviesDetails(id));
     }
   }
+  componentWillReceiveProps(props) {
+    if(props.params.movieId !== this.props.params.movieId) {
+      let { dispatch } = this.props;
+      const id = props.params.movieId;
+      if(id) {
+        dispatch(getMoviesDetails(id));
+      }
+    }
+  }
   componentWillUnmount() {
     let { dispatch } = this.props;
     dispatch(unLoad());

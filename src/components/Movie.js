@@ -4,10 +4,19 @@ import round from './../utils/roundingNumber';
 import './../styles/styles.scss';
 import { paths } from './../constants/locationSvc';
 const Movie = (props) => {
+  const moviePoster = props.movie.backdrop_path;
   return (
     <div className="col-lg-4 col-md-6 col-sm-6 movie">
       <div>
-        <img src={paths[ 'imgPath500']+ props.movie.backdrop_path} alt="" />
+        {
+          moviePoster ? (
+            <img src={paths[ 'imgPath500']+ props.movie.backdrop_path} alt="" />
+          ) :
+          (
+            <div className="no-poster">No Image Available</div>
+          )
+        }
+        
         <div className="detail">
           <h3>{props.movie.title}</h3>
           {

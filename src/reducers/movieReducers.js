@@ -65,3 +65,19 @@ export function movies( state = initialStateMovies, action){
             return state;
     }
 }
+
+const moviesFound = {moviesFound:[]};
+export function searchedMovies (state = moviesFound, action) {
+  switch(action.type) {
+    case 'MOVIES_SEARCHED':
+      return Object.assign({}, state, {
+        moviesFound: action.res
+      });
+    case 'RESET_QUICK_SEARCH':
+      return Object.assign({}, state, {
+        moviesFound: []
+      }); 
+    default:
+      return state;
+  }
+}

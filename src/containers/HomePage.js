@@ -13,13 +13,19 @@ export class HomePage extends React.Component {
     getMovies(1, false, dispatch);
   }
   render () {
-    const { movies } = this.props;
-    if(movies.isFetching) {
-      return <Loader/>;
-    }
-    if(!movies.isFetching) {
-      return <LandingPage movies={movies}/>;
-    }
+    const {movies} = this.props;
+    const isFetching = movies.isFetching;
+    return (
+      <div>
+      {
+        isFetching ? (
+          <Loader/>
+        ) : (
+          <LandingPage movies={movies}/>
+        )
+      }
+      </div>
+    );
   }
 }
 HomePage.propTypes = {

@@ -1,4 +1,9 @@
+$black: #000;
+$orange: #ff5c00;
+$appBlack: #373a3c;
+$orange: #f0ad4e;
 body {
+    font-size: 1.6rem;
     // background: #141414;
     // color: #ccc;
 }
@@ -23,12 +28,30 @@ iframe {
   margin: 5px auto;
 }
 .home {
-  h1 {
+  .container {
+    border: 1px solid $black;
+    overflow: hidden;
+    padding: 0;
+  }
+  header{
+    background: $black;
+    color: #f0ad4e;
+    height: 40px;
     text-align: center;
+    overflow:hidden;
+    h3, p {
+      margin: 6px 20px;
+      float: left;
+      color: $orange;
+    }
+    p {
+      float: right;
+    }
   }
   overflow:hidden;
   .col-lg-4, .col-md-6, .col-sm-6 {
     padding: 0;
+    height:200px;
   }
 }
 .movies-app {
@@ -37,8 +60,11 @@ iframe {
   }
   .footer {
     background: #222;
-    border-radius: 5px;
-    height: 45px;
+    border-radius: 4px;
+    height: 50px;
+    position: fixed;
+    bottom: -1px;
+    min-width: 100%;
     .pagination {
       margin: 7px 5px;
     }
@@ -69,6 +95,14 @@ iframe {
 
 
 .movie {
+  .no-poster {
+    height: 300px;
+    font-size: 18px;
+    text-align: center;
+    padding-top: 100px;
+    background: $black;
+    color: $orange;
+  }
   div {
     box-shadow: 3px 6px 11px #191919;
     img {
@@ -149,20 +183,72 @@ iframe {
 }
 
 .navbar {
-  height: 40px;
+  height: 44px;
+  ul {
+    float:left;
+    width: 55%;
+  }
+  input {
+    float:right;
+    width: 30%;
+    height: 96%;
+    margin-top: 1px;
+  }
   li {
     display: inline-block;
   }
-    a {
+  a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 15px;
+    margin-right: 20px;
+    &:hover {
+      background: #000;
       text-decoration: none;
-        display: inline-block;
-        padding: 10px 15px;
-        margin-right: 20px;
-         &:hover {
-            background: #000;
-            text-decoration: none;
-        }
     }
+  }
+}
+
+.movies-found {
+  min-height: auto;
+  max-height: 100vh;
+  overflow-y: scroll;
+  background: $appBlack;
+  width: 30%;
+  position: absolute;
+  right: 2px;
+  top: 44px;
+  z-index: 99999;
+  .details {
+    border-bottom: 1px solid $black;
+    overflow: hidden;
+    div, img {
+      float: left;
+    }
+    a {
+      display: block;
+      height: 75px;
+      padding: 5px;
+    }
+    div {
+      margin-left: 1rem;
+      width: 70%;
+    }
+    span {
+      color: $orange;
+      display: block;
+      font-size: 1.5rem;
+    }
+    span:first-child {
+      color: #ccc;
+      font-size: 15px;
+      font-weight: bold;
+      padding-bottom: 0.5rem;
+    }
+    &:hover {
+      background: $black;
+    }
+  }
 }
 
 

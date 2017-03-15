@@ -1,6 +1,13 @@
 import { paths } from './../constants/locationSvc';
 import toFromDates from './../utils/toFromDates';
 
+export function movieSearched (res) {
+  return { type: 'MOVIES_SEARCHED', res};
+}
+
+export function resetQuickSearch () {
+  return { type: 'RESET_QUICK_SEARCH'};
+}
 
 export function loadSuccess (res, pageNo) {
   return { type: 'LOAD_SUCCESS', res, pageNo};
@@ -68,6 +75,24 @@ export function loadGenres () {
     return fetch(`${paths.apiUrl}/genre/movie/list${paths.apiKey}`, {method: 'get'})
       .then(checkStatus)
       .then((json)=>dispatch(loadGenre(json)));
+  };
+}
+
+export function searchMovies(movie) {
+  return (dispatch) => {
+    return fetch(`${paths.apiUrl}/search/multi${paths.apiKey}&language=en-US&query=${movie}`)
+      .then(checkStatus)
+      .then((res)=>{ 
+        let data = res.results;
+        data.map((movie)=> {
+          if(movie.release_date) {
+            movie.releaseYear = new Date(movie.release_date).getFullYear();
+          }
+        });
+        let movies = data.filter((movie)=> movie.media_type === 'movie');
+        dispatch(movieSearched(movies, 1));
+      })
+      .catch((err)=>dispatch(loadError(err)));
   };
 }
 

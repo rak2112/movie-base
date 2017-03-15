@@ -4,13 +4,11 @@ import { paths } from './../constants/locationSvc';
 const LandingPage = (props) => {
   return (
     <div className="home">
-      <h1>React Movie Base</h1>
-      <ul>
-        <li>Watch Trailers</li>
-        <li>Ratings, Cast and story lines of all the Latest, Upcoming and the Super Hit Movies</li>
-        <li>Creating your personal favourites and watchlist coming soon</li>
-      </ul>
-      <div>
+      <div className="container">
+        <header>
+          <h3>React Movie Base</h3>
+          <p>Developed By: Khurram Raja, @rak2112</p>
+        </header>
         {
           props.movies.items.map( (movie, index) => {
             if(index < 9) {
@@ -18,7 +16,7 @@ const LandingPage = (props) => {
             }
           })
         }
-      </div>
+       </div> 
     </div>
   );
 };
