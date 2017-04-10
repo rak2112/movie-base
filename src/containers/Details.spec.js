@@ -17,17 +17,18 @@ describe('<Container component Details />', () => {
     const state = {
       getDetails: {
         fetchingDetails: true,
+        errorDetails: true,
         fetchingVideos: false,
         fetchingCast: true,
         fetchingImgs: true,
         showModal: true,
         details: {},
-        videos: [],
+        videos: {},
         utubeKey: '/xyzABC',
         images: [],
         castCrew: {}
       },
-      params: {movieId: 4444},
+      params: {movieId: '4444'},
       getModal: () =>{},
       closeModal: () =>{},
       dispatch: () =>{}};
@@ -39,17 +40,18 @@ describe('<Container component Details />', () => {
     const state = {
       getDetails: {
         fetchingDetails: true,
+        errorDetails: false,
         fetchingVideos: true,
         fetchingCast: true,
         fetchingImgs: true,
         showModal: true,
         details: {},
-        videos: [],
+        videos: {},
         utubeKey: '/xyzABC',
         images: [],
         castCrew: {}
       },
-      params: {movieId: 4444},
+      params: {movieId: '4444'},
       getModal: () =>{},
       closeModal: () =>{},
       dispatch: () =>{}};
@@ -61,6 +63,7 @@ describe('<Container component Details />', () => {
     const state = {
       getDetails: {
         fetchingDetails: false,
+        errorDetails: false,
         fetchingVideos: false,
         fetchingCast: false,
         fetchingImgs: false,
@@ -71,7 +74,7 @@ describe('<Container component Details />', () => {
         images: [{img: 'movieImg'}],
         castCrew: {cast:[{key: 1}, {key:4}], crew: [{key:2}]}
       },
-      params: {movieId: 4444},
+      params: {movieId: '4444'},
       getModal: () =>{},
       closeModal: sinon.spy(),
       dispatch: () =>{}};

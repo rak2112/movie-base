@@ -9,7 +9,7 @@ describe('<MenuItem />', () => {
     const state = {
       menu: {routeName: 'home', displayName: 'Home'}
     };
-    const wrapper = shallow(<MenuItem menu={state.menu}/>);
+    const wrapper = shallow(<MenuItem {...state}/>);
     const actual = wrapper.find('.menu-item').length;
     expect(actual).to.equal(1);
   });

@@ -24,7 +24,7 @@ describe('<Container component Movies />', () => {
   });
 
   it('should contain <Error /> if there is something wrong', () => {
-    const state = {isFetching: false, isError: true, pageNo:1, items:[], genres:[], route:{path:''}, dispatch: ()=>{}};
+    const state = {isFetching: false, hasError: true, pageNo:1, items:[], genres:[], route:{path:''}, dispatch: ()=>{}};
     const wrapper = shallow(<Movies {...state}/>);
 
     expect(wrapper.find(Loader)).to.be.length(0);

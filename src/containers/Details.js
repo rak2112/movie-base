@@ -36,6 +36,7 @@ export class Details extends React.Component {
             fetchingVideos,
             fetchingCast,
             fetchingImgs,
+            errorDetails,
             showModal,
             details,
             videos,
@@ -43,30 +44,28 @@ export class Details extends React.Component {
             images,
             castCrew
           } = this.props.getDetails;
-    if(fetchingDetails && fetchingVideos && fetchingCast && fetchingImgs) {
+    let loadingInProgress = fetchingDetails && fetchingVideos && fetchingCast && fetchingImgs;
+    let loadingFinished = !fetchingDetails && !fetchingVideos && !fetchingCast && !fetchingImgs;   
       return (
-        <Loader/>
-      );
-    }
-    if(!fetchingDetails && !fetchingVideos && !fetchingCast && !fetchingImgs) {
-      return (
-        <div className="movie-details">
-          <MovieModal showModal={showModal} videoKey={utubeKey} closeModal={this.props.closeModal}/>
-          <MovieDetails data={details} video={videos} images={images} castCrew={castCrew} clickHandler={this.props.getModal}/>
+        <div>
+          {
+            loadingInProgress && !errorDetails && <Loader/>
+          }
+          {
+            loadingFinished && 
+            <div className="movie-details">
+            <MovieModal showModal={showModal} videoKey={utubeKey} closeModal={this.props.closeModal}/>
+            <MovieDetails data={details} video={videos} images={images} castCrew={castCrew} clickHandler={this.props.getModal}/>
+            </div>
+          }
+          {
+            errorDetails && <Error/>
+          }
         </div>
+        
       );
-    }
-    return <Error/>;
   }
 }
-
-Details.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  params: PropTypes.object.isRequired,
-  getDetails: PropTypes.object.isRequired,
-  closeModal: PropTypes.func.isRequired,
-  getModal: PropTypes.func.isRequired
-};
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -86,5 +85,30 @@ function mapStateToProps (state) {
     getDetails
   };
 }
+
+Details.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  getModal: PropTypes.func.isRequired,
+  params: PropTypes.shape({
+    movieId: PropTypes.string.isRequired
+  }),
+  getDetails: PropTypes.shape({
+    castCrew: PropTypes.shape({
+      cast: PropTypes.array,
+      crew: PropTypes.array
+    }),
+    details: PropTypes.object.isRequired,
+    fetchingDetails: PropTypes.bool.isRequired,
+    errorDetails: PropTypes.bool.isRequired,
+    fetchingCast: PropTypes.bool.isRequired,
+    fetchingImgs: PropTypes.bool.isRequired,
+    fetchingVideos: PropTypes.bool.isRequired,
+    images: PropTypes.array.isRequired,
+    showModal: PropTypes.bool.isRequired,
+    utubeKey: PropTypes.string,
+    videos: PropTypes.object.isRequired
+  })
+};
 
 export default connect( mapStateToProps, mapDispatchToProps)(Details);

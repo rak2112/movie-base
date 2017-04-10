@@ -2,6 +2,7 @@ $black: #000;
 $orange: #ff5c00;
 $appBlack: #373a3c;
 $orange: #f0ad4e;
+$white: #fff;
 body {
     font-size: 1.6rem;
     // background: #141414;
@@ -90,6 +91,9 @@ iframe {
 }
 .carousel-inner {
   width: 105%;
+  img {
+    height: 500px !important;
+  }
 }
 
 
@@ -137,8 +141,20 @@ iframe {
     margin: 0 3px;
   }
 }
-
+.profileDetails {
+  border-radius: 40px;
+  border: 3px solid #eaeaea;
+  background: #ccc;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+}
 .movie-details {
+  .btn-warning {
+    color: $orange;
+    background-color: $white;
+    margin-right: 1px;
+  }
   img {
     width: 95%;
   }
@@ -169,6 +185,39 @@ iframe {
       font-size: 20px;
       margin-right: 2px;
       top: 4px;
+    }
+  }
+  .cast {
+    clear: both;
+    padding-top: 1rem;
+    .attr-name {
+      padding-left: 3rem;
+    }
+    li {
+      float: left;
+      list-style: none;
+      width: 178px;
+      text-align:center;
+    }
+    .cast-detail {
+      display: inline-block;
+      img {
+        @extend .profileDetails;
+      }
+      span {
+        display: block;
+        font-size: 1.2rem;
+      }
+      span:first-child {
+        font-weight: bold;
+      }
+      .initials {
+        color: $orange;
+        font-size: 1.4rem;
+        padding-top: 1.6rem;
+        font-weight: bold;
+        @extend .profileDetails;
+      }
     }
   }
 }

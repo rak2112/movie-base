@@ -25,7 +25,7 @@ const Movie = (props) => {
                 return <span className="genre" key={genre.id}>{genre.name}</span>;
             })
           }
-          <p>Rating: {round(props.movie.vote_average, 1)}</p>
+          <p>Rating: {round(props.movie.vote_average, 1)}<span className="fa fa-star"/></p>
           <Link to={{pathname: '/movieDetails/'+props.movie.id }}>View Details</Link>
         </div>
       </div>

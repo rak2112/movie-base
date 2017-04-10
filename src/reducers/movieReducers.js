@@ -15,12 +15,12 @@ const initialStateDetails = {
   utubeKey:null,
   details:{},
   videos:{},
-  images:{}
+  images:[]
 };
 export function getDetails (state = initialStateDetails , action) {
     switch (action.type) {
         case 'UN_LOAD':
-            return Object.assign({}, state, { fetchingDetails: true});
+            return Object.assign({}, state, initialStateDetails);
         case 'ERROR_DETAILS':
             return Object.assign({}, state, { errorDetails: true});
         case 'LOADING_DETAILS':
@@ -40,7 +40,7 @@ export function getDetails (state = initialStateDetails , action) {
     }
 }
 
-const initialStateMovies = {isFetching:true, pageNo:1, totalPages: 1, items: [], totalItems:[]};
+const initialStateMovies = {isFetching:true, hasError: false, pageNo:1, totalPages: 1, items: [], totalItems:[]};
 export function movies( state = initialStateMovies, action){
     switch (action.type) {
         case 'LOADING_REQ':
@@ -49,13 +49,14 @@ export function movies( state = initialStateMovies, action){
             });
         case 'LOAD_ERROR':
             return Object.assign({}, state, {
-              isError: true,
+              hasError: true,
               isFetching: false,
               errorStatus: action.res.message
             });
         case 'LOAD_SUCCESS':
             return Object.assign({}, state, {
               isFetching: false,
+              hasError: false,
               pageNo: action.pageNo,
               totalItems: action.res['total_results'],
               totalPages:action.res['total_pages'],

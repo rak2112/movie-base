@@ -35,7 +35,7 @@ const detailsDefaultState = {
   utubeKey:null,
   details:{},
   videos:{},
-  images:{}
+  images:[]
 };
 
 describe(`Reducer getDetails`, () => {
@@ -68,6 +68,7 @@ describe(`Reducer getDetails`, () => {
 
 const moviesDefaultState = {
   isFetching:true,
+  hasError: false,
   pageNo:1,
   totalPages: 1,
   items: [],

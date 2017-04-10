@@ -24,12 +24,14 @@ export default class MovieList extends React.Component {
 
      return (
       <div ref="movieList" className="movieList">
+        <h4>{this.props.pageName || 'All Movies'}</h4>
         {movieNodes}
       </div>
   );
   }
 }
 MovieList.propTypes = {
+  pageName: PropTypes.string,
   genre: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired
 };

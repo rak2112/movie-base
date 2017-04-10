@@ -13,6 +13,7 @@ class MoviesPagination extends React.Component {
   }
   render() {
     return (
+     <div className="footer"> 
       <Pagination
         prev
         next
@@ -23,6 +24,7 @@ class MoviesPagination extends React.Component {
         items={this.props.itemToDisplay}
         activePage={this.props.pageNo}
         onSelect={this.handleSelect} />
+      </div>  
     );
   }
 }

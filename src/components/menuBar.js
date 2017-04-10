@@ -46,9 +46,18 @@ const MenuBar = (props) => {
 };
 
 MenuBar.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    routeName: PropTypes.string.isRequired,
+    displayName: PropTypes.string
+  })),
   movieToFind: PropTypes.string.isRequired,
-  moviesFound: PropTypes.array.isRequired,
+  moviesFound: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    poster_path: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    releaseYear: PropTypes.number
+  })),
   onFocusOut: PropTypes.func.isRequired,
   clickHandler: PropTypes.func.isRequired
 };

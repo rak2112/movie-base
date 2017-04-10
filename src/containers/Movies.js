@@ -28,29 +28,28 @@ export class Movies extends React.Component {
     dispatch(loadingReq());
     getMovies(pageNo, path, dispatch);
     this.refs.movies.childNodes[1].scrollTop = 0;
-
     //window.scrollTo(0, 0);
   }
   handleRefreshClick(evt) {
     evt.preventDefault();
   }
   render() {
-    const {items, isFetching, isError, errorStatus, genres, pageNo, totalPages} = this.props;
+    const {items, isFetching, hasError, errorStatus, genres, pageNo, totalPages} = this.props;
     let pages = (totalPages>1000) ? 1000 : totalPages ; //api doesnt support pages more then 1000
-    if(isFetching) {
-      return (<Loader/>);
-    }
-    if(isError) {
-      return (<Error errorStatus={errorStatus}/>);
-    }
-
     return (
-      <div ref="movies" className="movies-app">
-        <h4>{this.props.pageName || 'All Movies'}</h4>
-        <MovieList data={items} genre={genres}/>
-        <div className="footer">
-          <MoviesPagination onPageChange={this.handlePageChange} itemToDisplay={pages} pageNo={pageNo}/>
-        </div>
+      <div>
+        {
+          isFetching && <Loader/>
+        }
+        {
+          hasError && <Error errorStatus={errorStatus}/>
+        }
+        { !isFetching && !hasError &&
+          <div ref="movies" className="movies-app">
+            <MovieList data={items} genre={genres} pageName={this.props.pageName}/>
+            <MoviesPagination onPageChange={this.handlePageChange} itemToDisplay={pages} pageNo={pageNo}/>
+          </div>
+        }
       </div>
     );
   }
@@ -58,21 +57,24 @@ export class Movies extends React.Component {
 
 function mapStateProps(state) {
   const { movies, getGenres } = state;
-  const { isFetching, isError, errorStatus, items, pageNo, totalPages } = movies;
+  const { isFetching, hasError, errorStatus, items, pageNo, totalPages } = movies;
   const { genres } = getGenres;
   return {
-    items, isFetching, isError, errorStatus, genres, pageNo, totalPages
+    items, isFetching, hasError, errorStatus, genres, pageNo, totalPages
   };
 }
 
 Movies.propTypes = {
   pageNo: PropTypes.number.isRequired,
   totalPages: PropTypes.number,
-  items : PropTypes.array.isRequired,
+  items : PropTypes.arrayOf(PropTypes.object.isRequired),
   pageName: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
-  genres: PropTypes.array.isRequired,
-  isError: PropTypes.bool,
+  genres: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string
+  })),
+  hasError: PropTypes.bool,
   errorStatus: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
   route: PropTypes.object.isRequired
