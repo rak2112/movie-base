@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
-
+import "babel-polyfill";
 export default {
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -11,6 +11,7 @@ export default {
   noInfo: true, // set to false to see a list of every file being bundled.
   entry: [
     // must be first entry to properly set public path
+    "babel-polyfill",
     './src/webpack-public-path',
     'webpack-hot-middleware/client?reload=true',
     './src/index'
@@ -43,7 +44,21 @@ export default {
   ],
   module: {
     loaders: [
-      {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel']},
+      {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel'],
+      presets: [
+        'es2015',
+        'stage-0'
+      ],
+      plugins: [
+        "babel-polyfill",
+          'transform-runtime',
+          "transform-regenerator", {
+            "asyncGenerators": false,
+            "generators": false,
+            "async": true
+          },
+          "babel-plugin-transform-runtime",
+      ]},
       {test: /\.eot(\?v=\d+.\d+.\d+)?$/, loader: 'file'},
       {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000&mimetype=application/font-woff"},
       {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},

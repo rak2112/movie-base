@@ -1,6 +1,5 @@
 import { paths } from './../constants/locationSvc';
 import toFromDates from './../utils/toFromDates';
-
 export function movieSearched (res) {
   return { type: 'MOVIES_SEARCHED', res};
 }
@@ -69,39 +68,55 @@ let checkStatus = (response) => {
         return Promise.reject(new Error(response.statusText));
     }
 };
+
+async function syncLoad(url) {
+  const res = await fetch(url);
+  return checkStatus(res);
+}
+
 export function loadGenres () {
-  return (dispatch) => {
-    //url:'https://api.themoviedb.org/3/discover/movie?api_key=60773f18ef6a7a9ee3d4a640fab964eb&primary_release_date.gte=2015-01-01&primary_release_date.lte=2015-08-31&page=1',
-    return fetch(`${paths.apiUrl}/genre/movie/list${paths.apiKey}`, {method: 'get'})
-      .then(checkStatus)
-      .then((json)=>dispatch(loadGenre(json)));
+  return async dispatch => {
+    try {
+      let url = `${paths.apiUrl}/genre/movie/list${paths.apiKey}`;
+      const res = await syncLoad(url);
+      dispatch(loadGenre(res));
+    }
+    catch(e) {
+      dispatch(loadError(e));
+    }
   };
 }
 
 export function searchMovies(movie) {
-  return (dispatch) => {
-    return fetch(`${paths.apiUrl}/search/multi${paths.apiKey}&language=en-US&query=${movie}`)
-      .then(checkStatus)
-      .then((res)=>{ 
-        let data = res.results;
-        data.map((movie)=> {
-          if(movie.release_date) {
-            movie.releaseYear = new Date(movie.release_date).getFullYear();
-          }
-        });
-        let movies = data.filter((movie)=> movie.media_type === 'movie');
-        dispatch(movieSearched(movies, 1));
-      })
-      .catch((err)=>dispatch(loadError(err)));
+  return async (dispatch) => {
+    try {
+      let url = `${paths.apiUrl}/search/multi${paths.apiKey}&language=en-US&query=${movie}`;
+      const res = await syncLoad(url);
+      let data = res.results;
+      data.map((movie)=> {
+        if(movie.release_date) {
+          movie.releaseYear = new Date(movie.release_date).getFullYear();
+        }
+      });
+      let movies = data.filter((movie)=> movie.media_type === 'movie');
+      dispatch(movieSearched(movies, 1));
+    }
+    catch(e) {
+      dispatch(loadError(e));
+    }
   };
 }
 
 export function loadMovies (pageNumb) {
-  return (dispatch) => {
-    return fetch(`${paths.apiUrl}/discover/movie${paths.apiKey}&page=${pageNumb}`, {method: 'get'})
-      .then(checkStatus)
-      .then((json)=>dispatch(loadSuccess(json, pageNumb)))
-      .catch((err)=>dispatch(loadError(err)));
+  return async (dispatch) => {
+    try {
+      let url = `${paths.apiUrl}/discover/movie${paths.apiKey}&page=${pageNumb}`;
+      const res = await syncLoad(url);
+      dispatch(loadSuccess(res, pageNumb));
+    }
+    catch(err) {
+      dispatch(loadError(err));
+    }
   };
 }
 
@@ -126,42 +141,52 @@ export function getMoviesDetails (id) {
 }
 
 export function getVideoDetails (id) {
-  return (dispatch) => {
-    return fetch(`${paths.apiUrl}/movie/${id}/videos'${paths.apiKey}`, {method: 'get'})
-      .then(checkStatus)
-      .then((json)=>dispatch(loadVideoDetails(json)))
-      .catch((err)=>dispatch(loadError(err)));
+  return async dispatch => {
+    try {
+      let url = `${paths.apiUrl}/movie/${id}/videos'${paths.apiKey}`;
+      const res = await syncLoad(url);
+      dispatch(loadVideoDetails(res));
+    }
+    catch(err) {
+      dispatch(loadError(err));
+    }
   };
 }
 
-export function getLatest (pageNumb) {
+export function getLatest (pageNumber) {
   let {toDate, fromDate} = toFromDates();
-  return (dispatch) => {
-    return fetch(`${paths.apiUrl}/discover/movie?primary_release_date.gte=${toDate}&primary_release_date.lte=${fromDate}&api_key=60773f18ef6a7a9ee3d4a640fab964eb&page=${pageNumb}`,
-          {method: 'get'})
-      .then(checkStatus)
-      .then((json)=>dispatch(loadSuccess(json, pageNumb)))
-      .catch((err)=>dispatch(loadError(err)));
+  return async dispatch => {
+    try {
+      const res = await syncLoad(`${paths.apiUrl}/discover/movie?primary_release_date.gte=${toDate}&primary_release_date.lte=${fromDate}&api_key=60773f18ef6a7a9ee3d4a640fab964eb&page=${pageNumber}`);
+      dispatch(loadSuccess(res, pageNumber));
+    }
+    catch(err) {
+      dispatch(loadError(err));
+    }
   };
 }
 
 export function getPopular (pageNo) {
-  return (dispatch) => {
-    return fetch(`${paths.apiUrl}/discover/movie?sort_by=vote_average.desc&api_key=60773f18ef6a7a9ee3d4a640fab964eb&page=${pageNo}`,
-          {method: 'get'})
-      .then(checkStatus)
-      .then((json)=>dispatch(loadSuccess(json, pageNo)))
-      .catch((err)=>dispatch(loadError(err)));
+  return async dispatch => {
+    try {
+      const res = await syncLoad(`${paths.apiUrl}/discover/movie?sort_by=vote_average.desc&api_key=60773f18ef6a7a9ee3d4a640fab964eb&page=${pageNo}`);
+      dispatch(loadSuccess(res, pageNo));
+    }
+    catch(err) {
+      dispatch(loadError(err));
+    }
   };
 }
 
 export function getUpComing (pageNo) {
-  return (dispatch) => {
-    return fetch(`${paths.apiUrl}/movie/upcoming${paths.apiKey}&page=${pageNo}`,
-          {method: 'get'})
-      .then(checkStatus)
-      .then((json)=>dispatch(loadSuccess(json, pageNo)))
-      .catch((err)=>dispatch(loadError(err)));
+  return async dispatch => {
+    try {
+      const res = await syncLoad(`${paths.apiUrl}/movie/upcoming${paths.apiKey}&page=${pageNo}`);
+      dispatch(loadSuccess(res, pageNo));
+    }
+    catch(err) {
+      dispatch(loadError(err));
+    }
   };
 }
 

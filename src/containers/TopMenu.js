@@ -12,9 +12,9 @@ class TopMenu extends React.Component {
   render() {
     return (
     <div>
-      <MenuBar 
-        data={this.state.menuData} 
-        movieToFind={this.state.movieToFind} 
+      <MenuBar
+        data={this.state.menuData}
+        movieToFind={this.state.movieToFind}
         moviesFound={this.props.moviesFound}
         onFocusOut={this.props.onFocusOut.bind(this)}
         clickHandler={this.props.handleNameChange.bind(this)}/>
@@ -34,7 +34,12 @@ function mapDispatchToProps (dispatch) {
     },
     updateSearch() {
       let { dispatch } = this.props;
-      dispatch(searchMovies(this.state.movieToFind));
+      if(this.state.movieToFind) {
+        dispatch(searchMovies(this.state.movieToFind));
+      }
+      else {
+        dispatch(resetQuickSearch());
+      }
     },
     handleNameChange: function(event) {
       event.persist();

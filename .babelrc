@@ -1,17 +1,28 @@
 {
   "presets": [
-    "latest",
+    "env",
     "react",
-    "stage-1"
+    "es2015",
+    "stage-0",
+    "stage-1",
+    "stage-2"
   ],
   "env": {
     "development": {
       "presets": [
-        "react-hmre"
+        "react-hmre",
       ]
     },
     "production": {
       "plugins": [
+        "transform-runtime",
+        "transform-regenerator", {
+          "asyncGenerators": false,
+          "generators": false,
+          "async": true
+        },
+        "babel-plugin-transform-runtime",
+        "transform-export-extensions",
         "transform-react-constant-elements",
         "transform-react-remove-prop-types"
       ]
