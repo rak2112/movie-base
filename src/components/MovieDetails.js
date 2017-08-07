@@ -1,23 +1,14 @@
 import React, {PropTypes} from 'react';
-import { Carousel, CarouselItem } from 'react-bootstrap';
+import { Carousel, CarouselItem, Tabs, Tab } from 'react-bootstrap';
 import { paths } from './../constants/locationSvc';
 export default class MovieDetails extends React.Component {
-  constructor(props) { 
+  constructor(props) {
     super(props);
   }
   render() {
     return (
       <div className="movie-detailst col-lg-12 col-md-12 col-sm-12">
         <div className="col-lg-6 col-md-6 col-sm-6">
-          <div className="trail">
-            <p>
-            {
-              this.props.video.results.map((trail, index) => {
-                return <span className="trailers" key={index}><a onClick={this.props.clickHandler.bind(this, trail.key)}><i className= "glyphicon glyphicon-play-circle"/>{trail.name}</a></span>;
-              })
-            }
-            </p>
-          </div>
           <Carousel>
             {
               this.props.images.map((img, index)=> {
@@ -36,7 +27,7 @@ export default class MovieDetails extends React.Component {
           </div>
           <p><span className="attr-name">Ratings:</span> <span>{this.props.data.vote_average}</span><span className="fa fa-star"/></p>
           <p><span className="attr-name">Status:</span> <span>{this.props.data.status}</span></p>
-          
+
           <p><span className="attr-name">Language:</span>
             {
             this.props.data.spoken_languages.map((lang, index)=>{
@@ -59,55 +50,75 @@ export default class MovieDetails extends React.Component {
 
 
         </div>
-         <div className="cast clearfix">
-          <p className="attr-name">Top Cast</p>
-            {   this.props.castCrew.cast.map((actor, index) => {
-                    if(actor.order < 6 ){
-                      return (
-                        <li key={index}>
-                          <div className="cast-detail">
-                            <div className="profile">
-                              {
-                                actor.profile_path ? <img src={'https://image.tmdb.org/t/p/w264_and_h264_bestv2'+actor.profile_path} alt="PP" />
-                                : <div className="initials">{actor.name}</div>
-                              }
-                            </div>
-                            <p>
-                              <span>{actor.name}</span>
-                              <span>{actor.character}</span>
-                            </p>
-                          </div>
-                        </li>  
-                      );
-                    }
-                })
-            }
-          </div>
-          <div className="crew cast clearfix">
-            <p className="attr-name">Crew</p>
-              {   this.props.castCrew.crew.map((crew, index) => {
-                      if(index < 6 ){
-                        return (
-                          <li key={index}>
-                            <div className="cast-detail">
-                              <div className="profile">
-                                {
-                                  crew.profile_path ? <img src={'https://image.tmdb.org/t/p/w264_and_h264_bestv2'+crew.profile_path} alt="PP" />
-                                  : <div className="initials">{crew.name}</div>
-                                }
-                              </div>
-                              <p>
-                                <span>{crew.name}</span>
-                                <span>{crew.job}</span>
-                              </p>
-                            </div>
-                          </li>  
-                        );
-                      }
+          <div className="cast tabs clearfix">
+           <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+            <Tab eventKey={1} title="Trailers">
+              <div className="col-lg-12 col-md-12 col-sm-12 trail">
+                <p>
+                {
+                  this.props.video.results.map((trail, index) => {
+                    return <span className="col-lg-3 col-md-3 col-sm-3 trailers" key={index}><a onClick={this.props.clickHandler.bind(this, trail.key)}><i className= "glyphicon glyphicon-play-circle"/>{trail.name}</a></span>;
                   })
-              }
-          </div>
+                }
+                </p>
+              </div>
+            </Tab>
+            <Tab eventKey={2} title="Cast">
+              <div className="cast clearfix">
+               <p className="attr-name">Top Cast</p>
+                 {   this.props.castCrew.cast.map((actor, index) => {
+                         if(actor.order < 6 ){
+                           return (
+                             <li key={index}>
+                               <div className="cast-detail">
+                                 <div className="profile">
+                                   {
+                                     actor.profile_path ? <img src={'https://image.tmdb.org/t/p/w264_and_h264_bestv2'+actor.profile_path} alt="PP" />
+                                     : <div className="initials">{actor.name}</div>
+                                   }
+                                 </div>
+                                 <p>
+                                   <span>{actor.name}</span>
+                                   <span>{actor.character}</span>
+                                 </p>
+                               </div>
+                             </li>
+                           );
+                         }
+                     })
+                 }
+               </div>
+            </Tab>
+            <Tab eventKey={3} title="Crew">
+            <div className="crew cast clearfix">
+              <p className="attr-name">Crew</p>
+                {   this.props.castCrew.crew.map((crew, index) => {
+                        if(index < 6 ){
+                          return (
+                            <li key={index}>
+                              <div className="cast-detail">
+                                <div className="profile">
+                                  {
+                                    crew.profile_path ? <img src={'https://image.tmdb.org/t/p/w264_and_h264_bestv2'+crew.profile_path} alt="PP" />
+                                    : <div className="initials">{crew.name}</div>
+                                  }
+                                </div>
+                                <p>
+                                  <span>{crew.name}</span>
+                                  <span>{crew.job}</span>
+                                </p>
+                              </div>
+                            </li>
+                          );
+                        }
+                    })
+                }
+            </div>
+            </Tab>
+          </Tabs>
+         </div>
       </div>
+
   );
 }
 }

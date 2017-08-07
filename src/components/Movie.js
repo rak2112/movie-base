@@ -10,13 +10,15 @@ const Movie = (props) => {
       <div>
         {
           moviePoster ? (
-            <img src={paths[ 'imgPath500']+ props.movie.backdrop_path} alt="" />
+            <Link to={{pathname: '/movieDetails/'+props.movie.id }}>
+              <img src={paths[ 'imgPath500']+ props.movie.backdrop_path} alt="" />
+            </Link>
           ) :
           (
             <div className="no-poster">No Image Available</div>
           )
         }
-        
+
         <div className="detail">
           <h3>{props.movie.title}</h3>
           {

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-const ACTIVE = { background: '#000', color: '#ff5c00', borderRadius: '5px'};
+const ACTIVE = { background: '#000', color: '#ff5c00', borderBottom: '4px solid', paddingBottom: '8px'};
 
 const MenuItem = (props) =>{
   return (

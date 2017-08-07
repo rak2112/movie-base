@@ -12,14 +12,18 @@ const MenuBar = (props) => {
             return <MenuItem menu={menu} key={menu.id} />;
           })
           }
-        
-        <input 
-          className="form-control" 
-          placeholder="Search for movies" 
+
+
+      </nav>
+      <div className="container search-container">
+        <span className="fa fa-search"/>
+        <input
+          className="form-control"
+          placeholder="Search for movies"
           type="text"
           value={props.movieToFind}
           onChange={props.clickHandler}/>
-      </nav>
+      </div>
       {
         hasMovies.length > 0 &&
         <div className="movies-found" onMouseLeave={props.onFocusOut}>
@@ -28,7 +32,7 @@ const MenuBar = (props) => {
             return (
               <div key={movie.id} className="details">
                 <Link to={{pathname: '/movieDetails/'+ movie.id }}>
-              
+
                   <img src={'https://image.tmdb.org/t/p/w45_and_h67_bestv2'+movie.poster_path} alt="MP" />
                   <div>
                     <span>{movie.title}</span>
@@ -40,7 +44,7 @@ const MenuBar = (props) => {
             })
           }
         </div>
-      } 
+      }
     </div>
   );
 };
