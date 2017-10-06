@@ -29,9 +29,10 @@ describe('<Container component Details />', () => {
         castCrew: {}
       },
       params: {movieId: '4444'},
-      getModal: () =>{},
+      openModal: () =>{},
       closeModal: () =>{},
-      dispatch: () =>{}};
+      loadingReq: () =>{},
+      getMoviesDetails: ()=>{}};
     const wrapper = shallow(<Details {...state}/>);
     expect(wrapper.find(Loader)).to.be.length(0);
     expect(wrapper.find(Error)).to.be.length(1);
@@ -52,9 +53,10 @@ describe('<Container component Details />', () => {
         castCrew: {}
       },
       params: {movieId: '4444'},
-      getModal: () =>{},
+      getMoviesDetails: ()=>{},
+      openModal: () =>{},
       closeModal: () =>{},
-      dispatch: () =>{}};
+      loadingReq: () =>{}};
     const wrapper = shallow(<Details {...state}/>);
     expect(wrapper.find(Loader)).to.be.length(1);
   });
@@ -75,9 +77,10 @@ describe('<Container component Details />', () => {
         castCrew: {cast:[{key: 1}, {key:4}], crew: [{key:2}]}
       },
       params: {movieId: '4444'},
-      getModal: () =>{},
+      openModal: () =>{},
       closeModal: sinon.spy(),
-      dispatch: () =>{}};
+      loadingReq: () =>{},
+      getMoviesDetails: ()=>{}};
     const wrapper = shallow(<Details {...state}/>);
 
     expect(wrapper.find(MovieModal).prop('closeModal')).to.be.instanceof(Function);

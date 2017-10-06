@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import MenuBar from './../components/menuBar';
 import { menuData } from './../constants/locationSvc';
 import { searchMovies, resetQuickSearch } from '../actions/movieActions';
 
-class TopMenu extends React.Component {
+class TopMenu extends Component {
   constructor (props) {
     super(props);
     this.state = {menuData: menuData, movieToFind: ''};

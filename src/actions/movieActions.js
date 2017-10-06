@@ -1,65 +1,66 @@
 import { paths } from './../constants/locationSvc';
 import toFromDates from './../utils/toFromDates';
-export function movieSearched (res) {
+
+export const movieSearched = (res) => {
   return { type: 'MOVIES_SEARCHED', res};
-}
+};
 
-export function resetQuickSearch () {
+export const resetQuickSearch  = () => {
   return { type: 'RESET_QUICK_SEARCH'};
-}
+};
 
-export function loadSuccess (res, pageNo) {
+export const loadSuccess = (res, pageNo) => {
   return { type: 'LOAD_SUCCESS', res, pageNo};
-}
-export function loadError (res) {
+};
+export const loadError = (res) => {
   return { type: 'LOAD_ERROR', res};
-}
+};
 
-export function errorDetails (res) {
+export const errorDetails = (res) => {
   return { type: 'ERROR_DETAILS', res};
-}
+};
 
-export function loadFailure (text) {
+export const loadFailure = (text) => {
   return { type: 'LOAD_FAILURE', text};
-}
+};
 
-export function loadingReq (res) {
-  return { type: 'LOADING_REQ', res};
-}
+export const loadingReq = () => {
+  return { type: 'LOADING_REQ'};
+};
 
-export function loadGenre (res) {
+export const loadGenre =  (res) => {
   return { type: 'LOADING_GENRE', res};
-}
+};
 
-export function loadSuccessDetails (res) {
-  return { type: 'LOADING_DETAILS', res};
-}
+export const loadSuccessDetails = (res) => {
+  return { type: 'DETAILS_LOADED', res};
+};
 
-export function loadVideoDetails (res) {
+export const loadVideoDetails = (res) => {
   return { type: 'LOAD_VIDEOS', res};
-}
+};
 
-export function loadImages (res) {
+export const loadImages = (res) => {
   return { type: 'LOAD_IMAGES', res};
-}
+};
 
-export function loadCast (res) {
+export const loadCast =  (res) => {
   return { type: 'LOAD_CAST', res};
-}
+};
 
-export function loadPage (pageNo) {
+export const loadPage = (pageNo) => {
   return { type: 'PAGE_CHANGE', pageNo};
-}
-export function openModal (key) {
+};
+export const openModal = (key) => {
   return { type: 'OPEN_MODAL', key };
-}
-export function closeModal () {
+};
+export const closeModal = () => {
   return { type: 'CLOSE_MODAL' };
-}
+};
 
-export function unLoad () {
+export const unLoad = () => {
   return { type: 'UN_LOAD'};
-}
+};
 
 let checkStatus = (response) => {
     if (response.status === 200) {
@@ -74,7 +75,7 @@ async function syncLoad(url) {
   return checkStatus(res);
 }
 
-export function loadGenres () {
+export const loadGenres = () => {
   return async dispatch => {
     try {
       let url = `${paths.apiUrl}/genre/movie/list${paths.apiKey}`;
@@ -85,9 +86,9 @@ export function loadGenres () {
       dispatch(loadError(e));
     }
   };
-}
+};
 
-export function searchMovies(movie) {
+export const searchMovies = (movie) => {
   return async (dispatch) => {
     try {
       let url = `${paths.apiUrl}/search/multi${paths.apiKey}&language=en-US&query=${movie}`;
@@ -105,9 +106,9 @@ export function searchMovies(movie) {
       dispatch(loadError(e));
     }
   };
-}
+};
 
-export function loadMovies (pageNumb) {
+export const loadMovies = (pageNumb) => {
   return async (dispatch) => {
     try {
       let url = `${paths.apiUrl}/discover/movie${paths.apiKey}&page=${pageNumb}`;
@@ -118,9 +119,9 @@ export function loadMovies (pageNumb) {
       dispatch(loadError(err));
     }
   };
-}
+};
 
-export function getMoviesDetails (id) {
+export const getMoviesDetails = (id) => {
   return (dispatch) => {
     let details = fetch(`${paths.apiUrl}/movie/${id}${paths.apiKey}`).then(checkStatus);
     let videos = fetch(`${paths.apiUrl}/movie/${id}/videos${paths.apiKey}`).then(checkStatus);
@@ -138,9 +139,9 @@ export function getMoviesDetails (id) {
         dispatch(errorDetails(err));
       });
   };
-}
+};
 
-export function getVideoDetails (id) {
+export const getVideoDetails = (id) => {
   return async dispatch => {
     try {
       let url = `${paths.apiUrl}/movie/${id}/videos'${paths.apiKey}`;
@@ -151,9 +152,9 @@ export function getVideoDetails (id) {
       dispatch(loadError(err));
     }
   };
-}
+};
 
-export function getLatest (pageNumber) {
+export const getLatest = (pageNumber) => {
   let {toDate, fromDate} = toFromDates();
   return async dispatch => {
     try {
@@ -164,9 +165,9 @@ export function getLatest (pageNumber) {
       dispatch(loadError(err));
     }
   };
-}
+};
 
-export function getPopular (pageNo) {
+export const getPopular = (pageNo) => {
   return async dispatch => {
     try {
       const res = await syncLoad(`${paths.apiUrl}/discover/movie?sort_by=vote_average.desc&api_key=60773f18ef6a7a9ee3d4a640fab964eb&page=${pageNo}`);
@@ -176,9 +177,9 @@ export function getPopular (pageNo) {
       dispatch(loadError(err));
     }
   };
-}
+};
 
-export function getUpComing (pageNo) {
+export const getUpComing = (pageNo) => {
   return async dispatch => {
     try {
       const res = await syncLoad(`${paths.apiUrl}/movie/upcoming${paths.apiKey}&page=${pageNo}`);
@@ -188,26 +189,28 @@ export function getUpComing (pageNo) {
       dispatch(loadError(err));
     }
   };
-}
+};
 
-
-export function getMovies(pageNo, route, dispatch) {
-  switch (route) {
-    case 'movies':
-      dispatch(loadMovies(pageNo));
-      dispatch(loadGenres());
-      break;
-    case 'latest':
-      dispatch(getLatest(pageNo));
-      dispatch(loadGenres());
-      break;
-    case 'popular':
-      dispatch(getPopular(pageNo));
-      break;
-    case 'upComing':
-      dispatch(getUpComing(pageNo));
-      break;
-    default:
-      dispatch(loadMovies(pageNo));
-  }
-}
+export const getMovies = (params) =>{
+  const {pageNo, path:route} = params;
+  return dispatch =>{
+    switch (route) {
+      case 'movies':
+        dispatch(loadMovies(pageNo));
+        dispatch(loadGenres());
+        break;
+      case 'latest':
+        dispatch(getLatest(pageNo));
+        dispatch(loadGenres());
+        break;
+      case 'popular':
+        dispatch(getPopular(pageNo));
+        break;
+      case 'upComing':
+        dispatch(getUpComing(pageNo));
+        break;
+      default:
+        dispatch(loadMovies(pageNo));
+    }
+  };
+};

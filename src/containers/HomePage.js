@@ -9,8 +9,8 @@ export class HomePage extends React.Component {
     super();
   }
   componentDidMount() {
-    const { dispatch } = this.props;
-    getMovies(1, false, dispatch);
+    const { getMovies } = this.props;
+    getMovies({pageNo:1, path:false});
   }
   render () {
     const {movies} = this.props;
@@ -29,7 +29,7 @@ export class HomePage extends React.Component {
   }
 }
 HomePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getMovies: PropTypes.func.isRequired,
   movies: PropTypes.object.isRequired
 };
 
@@ -40,4 +40,6 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect( mapStateToProps)(HomePage);
+export default connect( mapStateToProps, {
+  getMovies
+})(HomePage);

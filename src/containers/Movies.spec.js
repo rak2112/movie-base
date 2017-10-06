@@ -8,14 +8,14 @@ import MovieList from '../components/MovieList';
 
 describe('<Container component Movies />', () => {
   it('should contain <Loader /> if its loading', () => {
-    const state = {isFetching: true, isError: false, pageNo:1, items:[], genres:[], route:{path:''}, dispatch: ()=>{}};
+    const state = {isFetching: true, isError: false, pageNo:1, items:[], genres:[], route:{path:''}, getMovies: ()=>{}, loadingReq:()=>{}};
     const wrapper = shallow(<Movies {...state}/>);
     expect(wrapper.find(Loader)).to.be.length(1);
     expect(wrapper.find(MovieList)).to.be.length(0);
   });
 
   it('should contain <MovieList /> if loading has been done', () => {
-    const state = {isFetching: false, isError: false, pageNo:1, items:[], genres:[], route:{path:''}, dispatch: ()=>{}};
+    const state = {isFetching: false, isError: false, pageNo:1, items:[], genres:[], route:{path:''}, getMovies: ()=>{}, loadingReq:()=>{}};
     const wrapper = shallow(<Movies {...state}/>);
 
     expect(wrapper.find(Loader)).to.be.length(0);
@@ -24,7 +24,7 @@ describe('<Container component Movies />', () => {
   });
 
   it('should contain <Error /> if there is something wrong', () => {
-    const state = {isFetching: false, hasError: true, pageNo:1, items:[], genres:[], route:{path:''}, dispatch: ()=>{}};
+    const state = {isFetching: false, hasError: true, pageNo:1, items:[], genres:[], route:{path:''}, getMovies: ()=>{}, loadingReq:()=>{}};
     const wrapper = shallow(<Movies {...state}/>);
 
     expect(wrapper.find(Loader)).to.be.length(0);

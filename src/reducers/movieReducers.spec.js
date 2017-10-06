@@ -51,10 +51,10 @@ describe(`Reducer getDetails`, () => {
   });
 
   it('should set state with action type of `LOADING_DETAILS`', ()=>{
-    const action = {type: 'LOADING_DETAILS', res: {details: 'details'}};
+    const action = {type: 'LOADING_REQ'};
     expect(Reducers.getDetails(detailsDefaultState, 'unknown').fetchingDetails).to.equal(true);
-    expect(Reducers.getDetails(detailsDefaultState, action).fetchingDetails).to.equal(false);
-    expect(Reducers.getDetails(detailsDefaultState, action).details).to.deep.equal({ details: 'details' });
+    expect(Reducers.getDetails(detailsDefaultState, action).fetchingDetails).to.equal(true);
+    expect(Reducers.getDetails(detailsDefaultState, action).details).to.deep.equal({});
   });
 
   it('should set state with action type of `OPEN_MODAL`', ()=>{

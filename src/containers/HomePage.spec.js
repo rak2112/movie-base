@@ -11,7 +11,7 @@ describe('<Container component HomePage />', () => {
   it('should contain <Loader /> when its still fetching', () => {
     const state = {
         movies: {isFetching: true},
-        dispatch: ()=>{}
+        getMovies: ()=>{}
       };
     const wrapper = shallow(<HomePage {...state}/>);
     expect(wrapper.find(Loader)).to.be.length(1);
@@ -21,7 +21,7 @@ describe('<Container component HomePage />', () => {
   it('should contain <LandingPage /> when fetching done', () => {
     const state = {
         movies: {isFetching: false, results:['movie1', 'movie2']},
-        dispatch: ()=>{}
+        getMovies: ()=>{}
       };
     const wrapper = shallow(<HomePage {...state}/>);
     //console.log('wrap',wrapper.debug());

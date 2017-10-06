@@ -6,27 +6,37 @@ import MoviesPagination from './../components/Pagination';
 import { connect } from 'react-redux';
 import { getMovies, loadingReq } from './../actions/movieActions';
 
+const propTypes = {
+  pageNo: PropTypes.number.isRequired,
+  totalPages: PropTypes.number,
+  items : PropTypes.arrayOf(PropTypes.object.isRequired),
+  pageName: PropTypes.string,
+  isFetching: PropTypes.bool.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string
+  })),
+  hasError: PropTypes.bool,
+  errorStatus: PropTypes.string,
+  getMovies: PropTypes.func.isRequired,
+  loadingReq: PropTypes.func.isRequired,
+  route: PropTypes.object.isRequired
+};
+
 export class Movies extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handlePageChange = this.handlePageChange.bind(this);
-  }
   componentDidMount() {
-    let { dispatch, route } = this.props;
+    let { route, getMovies, loadingReq } = this.props;
     const pageNo = 1;
     let path = route.path;
-    getMovies(pageNo, path, dispatch);
+    loadingReq();
+    getMovies({pageNo, path});
   }
-  componentWillUnmount() {
-    let {dispatch} = this.props;
-    dispatch(loadingReq());
-  }
-
+  
   handlePageChange(pageNo=1) {
-    const {dispatch, route } = this.props;
+    const { loadingReq, getMovies, route } = this.props;
     let path = route.path;
-    dispatch(loadingReq());
-    getMovies(pageNo, path, dispatch);
+    loadingReq();
+    getMovies({pageNo, path});
     this.refs.movies.childNodes[1].scrollTop = 0;
     //window.scrollTo(0, 0);
   }
@@ -47,7 +57,7 @@ export class Movies extends React.Component {
         { !isFetching && !hasError &&
           <div ref="movies" className="movies-app">
             <MovieList data={items} genre={genres} pageName={this.props.pageName}/>
-            <MoviesPagination onPageChange={this.handlePageChange} itemToDisplay={pages} pageNo={pageNo}/>
+            <MoviesPagination onPageChange={this.handlePageChange.bind(this)} itemToDisplay={pages} pageNo={pageNo}/>
           </div>
         }
       </div>
@@ -64,20 +74,9 @@ function mapStateProps(state) {
   };
 }
 
-Movies.propTypes = {
-  pageNo: PropTypes.number.isRequired,
-  totalPages: PropTypes.number,
-  items : PropTypes.arrayOf(PropTypes.object.isRequired),
-  pageName: PropTypes.string,
-  isFetching: PropTypes.bool.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string
-  })),
-  hasError: PropTypes.bool,
-  errorStatus: PropTypes.string,
-  dispatch: PropTypes.func.isRequired,
-  route: PropTypes.object.isRequired
-};
+Movies.propTypes = propTypes;
 
-export default connect(mapStateProps) (Movies);
+export default connect(mapStateProps, {
+  loadingReq,
+  getMovies
+}) (Movies);

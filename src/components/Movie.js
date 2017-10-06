@@ -18,7 +18,6 @@ const Movie = (props) => {
             <div className="no-poster">No Image Available</div>
           )
         }
-
         <div className="detail">
           <h3>{props.movie.title}</h3>
           {
